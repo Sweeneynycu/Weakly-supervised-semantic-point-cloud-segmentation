@@ -1,0 +1,14 @@
+# Train Full Model for ShapeNet
+python train_ShapeNet.py -gpu 1 -m 0.1 -sty Full -er 1 -bs 32 --Epoch 10
+python train_ShapeNet.py -gpu 0 -m 0.1 -sty Plain -er 1 -bs 32 --Epoch 10
+# Train Full Model for S3DIS
+# only use labeled data (baseline)
+python train_S3DIS.py -gpu 0 -m 0.1 -sty Plain -bs 14 --Epoch 3
+# Full train with 4 branch
+python train_S3DIS.py -gpu 1 -m 0.1 -sty Full -bs 1 --Epoch 10
+# Add weight to each branch loss
+python train_S3DIS.py -gpu 1 -m 0.1 -sty weight -bs 1 --Epoch 10
+
+#Test
+python test_S3DIS.py -gpu 0 -sty weight -path ./Results/S3DIS/DGCNN_sty-weight_m-0.1_2023-05-22_07-49-38
+python test_S3DIS.py -gpu 0 -sty Full -path ./Results/S3DIS/DGCNN_sty-Full_m-0.1_2023-05-21_10-26-32
